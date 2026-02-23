@@ -1,6 +1,5 @@
 package com.food.ordering.system.order.service.domain.outbox.scheduler.approval;
 
-import com.food.ordering.system.order.service.domain.entity.Order;
 import com.food.ordering.system.order.service.domain.outbox.model.approval.OrderApprovalOutboxMessage;
 import com.food.ordering.system.outbox.OutboxScheduler;
 import com.food.ordering.system.outbox.OutboxStatus;

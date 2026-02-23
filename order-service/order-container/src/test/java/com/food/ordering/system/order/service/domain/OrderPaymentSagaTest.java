@@ -21,7 +21,6 @@ import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 
 import static com.food.ordering.system.saga.order.SagaConstants.ORDER_SAGA_NAME;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD;
 
