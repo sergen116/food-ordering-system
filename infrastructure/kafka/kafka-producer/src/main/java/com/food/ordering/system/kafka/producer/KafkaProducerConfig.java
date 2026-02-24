@@ -40,6 +40,9 @@ public class KafkaProducerConfig<K extends Serializable, V extends SpecificRecor
         props.put(ProducerConfig.ACKS_CONFIG, kafkaProducerConfigData.getAcks());
         props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, kafkaProducerConfigData.getRequestTimeoutMs());
         props.put(ProducerConfig.RETRIES_CONFIG, kafkaProducerConfigData.getRetryCount());
+        if (kafkaProducerConfigData.getEnableIdempotence() != null) {
+            props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, kafkaProducerConfigData.getEnableIdempotence());
+        }
         return props;
     }
 
