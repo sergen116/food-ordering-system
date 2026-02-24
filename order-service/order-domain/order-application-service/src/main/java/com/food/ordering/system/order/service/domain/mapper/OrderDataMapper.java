@@ -38,6 +38,8 @@ public class OrderDataMapper {
                 .restaurantId(new RestaurantId(createOrderCommand.getRestaurantId()))
                 .deliveryAddress(orderAddressToStreetAddress(createOrderCommand.getAddress()))
                 .price(new Money(createOrderCommand.getPrice()))
+                .discount(createOrderCommand.getDiscount() != null
+                        ? new Money(createOrderCommand.getDiscount()) : Money.ZERO)
                 .items(orderItemsToOrderItemEntities(createOrderCommand.getItems()))
                 .build();
     }

@@ -19,6 +19,7 @@ public class CreateOrderCommand {
     private final UUID restaurantId;
     @NotNull
     private final BigDecimal price;
+    private final BigDecimal discount;
     @NotNull
     private final List<OrderItem> items;
     @NotNull

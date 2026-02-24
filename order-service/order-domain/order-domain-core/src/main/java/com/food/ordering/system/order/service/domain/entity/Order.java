@@ -15,6 +15,7 @@ public class Order extends AggregateRoot<OrderId> {
     private final RestaurantId restaurantId;
     private final StreetAddress deliveryAddress;
     private final Money price;
+    private final Money discount;
     private final List<OrderItem> items;
 
     private TrackingId trackingId;
@@ -93,9 +94,11 @@ public class Order extends AggregateRoot<OrderId> {
             return orderItem.getSubTotal();
         }).reduce(Money.ZERO, Money::add);
 
-        if (!price.equals(orderItemsTotal)) {
+        Money discountedTotal = discount != null ? orderItemsTotal.subtract(discount) : orderItemsTotal;
+        if (!price.equals(discountedTotal)) {
             throw new OrderDomainException("Total price: " + price.getAmount()
-                + " is not equal to Order items total: " + orderItemsTotal.getAmount() + "!");
+                + " is not equal to Order items total: " + orderItemsTotal.getAmount()
+                + " minus discount: " + (discount != null ? discount.getAmount() : "0") + "!");
         }
     }
 
@@ -119,6 +122,7 @@ public class Order extends AggregateRoot<OrderId> {
         restaurantId = builder.restaurantId;
         deliveryAddress = builder.deliveryAddress;
         price = builder.price;
+        discount = builder.discount;
         items = builder.items;
         trackingId = builder.trackingId;
         orderStatus = builder.orderStatus;
@@ -145,6 +149,10 @@ public class Order extends AggregateRoot<OrderId> {
         return price;
     }
 
+    public Money getDiscount() {
+        return discount;
+    }
+
     public List<OrderItem> getItems() {
         return items;
     }
@@ -167,6 +175,7 @@ public class Order extends AggregateRoot<OrderId> {
         private RestaurantId restaurantId;
         private StreetAddress deliveryAddress;
         private Money price;
+        private Money discount;
         private List<OrderItem> items;
         private TrackingId trackingId;
         private OrderStatus orderStatus;
@@ -197,6 +206,11 @@ public class Order extends AggregateRoot<OrderId> {
 
         public Builder price(Money val) {
             price = val;
+            return this;
+        }
+
+        public Builder discount(Money val) {
+            discount = val;
             return this;
         }
 
